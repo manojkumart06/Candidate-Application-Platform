@@ -11,6 +11,7 @@ const JobList = () => {
   const { jobs, loading, error } = useSelector((state) => state.jobs);
   const [offset, setOffset] = useState(0);
   const [count, setCount] = useState(0);
+  const [expand, setExpand] = useState(false);
 
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -61,8 +62,11 @@ const JobList = () => {
 
   useEffect(() => {
     dispatch(fetchJobs());
-  }, [jobs]);
+  }, []);
 
+  const handleExpand = () => {
+    setExpand(prevExpand => !prevExpand);
+  }
 
 //   console.log('jobs.length is ',jobs.length);
 //   console.log('count is',count)
@@ -80,7 +84,7 @@ const JobList = () => {
        
         {jobs.map((job) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={job.id}>
-            <JobCard job={job} />
+            <JobCard job={job} expand ={expand} handleExpand ={handleExpand} />
           </Grid>
         ))
       }
