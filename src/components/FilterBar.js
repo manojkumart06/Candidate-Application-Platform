@@ -1,29 +1,30 @@
-import React from 'react'
-import InputLabel from '@mui/material/InputLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import ListSubheader from '@mui/material/ListSubheader';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { TextField, Button } from '@material-ui/core';
+import { setFilters } from '../Redux/Actions/fetchAction';
 
 const FilterBar = () => {
+  const dispatch = useDispatch();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    dispatch(setFilters({ [name]: value }));
+  };
+
+  const handleApplyFilters = () => {
+    
+  };
+
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel >Roles</InputLabel>
-        <Select native defaultValue="" id="grouped-native-select" label="Grouping">
-          <option aria-label="None" value="" />
-          <optgroup label="Category 1">
-            <option value={1}>Option 1</option>
-            <option value={2}>Option 2</option>
-          </optgroup>
-          <optgroup label="Category 2">
-            <option value={3}>Option 3</option>
-            <option value={4}>Option 4</option>
-          </optgroup>
-        </Select>
-      </FormControl>
+      <TextField name="minExperience" label="Min Experience" onChange={handleChange} />
+      {}
+      <Button variant="contained" color="primary" onClick={handleApplyFilters}>
+        Apply Filters
+      </Button>
     </div>
-  )
-}
+  );
+};
 
-export default FilterBar
+export default FilterBar;
